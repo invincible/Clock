@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Clock demo</title>
+  
+  <script type='text/javascript' src='https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael.js'></script>
+  <script type='text/javascript' src="http://raphaeljs.com/helvetica.js"></script>
+	<script type='text/javascript' src="/js/Kranky.js"></script>
+
+  <style type='text/css'>
+    
+  </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+
+var letter = [];
+
+function updateClock(){
+    var currentTime = new Date ( );
+    var currentHours = currentTime.getHours ( );
+    var currentMinutes = currentTime.getMinutes ( );
+    var currentSeconds = currentTime.getSeconds ( );
+
+    var key = currentSeconds%10;
+    //alert(key);
+    letter[0].animate({path: helvetica[currentSeconds/10 | 0]}, 200);
+    letter[1].animate({path: helvetica[key]}, 200);
+};
+
+
+
+window.onload=function(){
+var r = Raphael("holder", 300, 150), pos = [0, 0];
+letter[0] = r.path("M0,0L0,0z").attr({fill: "#cde", stroke: "#226688", "fill-opacity": .3, "stroke-width": 1, "stroke-linecap": "round", translation: "100 100"});
+letter[1] = r.path("M0,0L0,0z").attr({fill: "#cde", stroke: "#446699", "fill-opacity": .3, "stroke-width": 1, "stroke-linecap": "round", translation: "200 200"});
+
+letter[1].translate(100,0);
+                   
+var key = "a";
+if (key && key in helvetica) {
+    letter[0].animate({path: helvetica[key]}, 200);
+};
+
+
+var txt = r.print(10, 50, "print", r.getFont("Kranky"), 30).attr({fill: "#f0f"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
+
+
+setInterval('updateClock()', 1000);
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <div id="holder"></div>
+  
+</body>
+
+
+</html>
+
